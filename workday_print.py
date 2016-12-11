@@ -1,5 +1,4 @@
-"""
-A python script to print out date strings for copy/paste into my work log.
+"""A python script to print out date strings for copy/paste into my work log.
 
 Example usage:
 
@@ -33,8 +32,6 @@ def this_weekday(d, weekday):
     """
     assert weekday <= 7
     days_ahead = weekday - d.weekday()
-    # if days_ahead <= 0: # Target day already happened this week
-    #     days_ahead += 7
     return d + datetime.timedelta(days_ahead)
 
 
