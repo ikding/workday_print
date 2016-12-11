@@ -1,63 +1,75 @@
-'''
-A small python script to print out date strings for copy/paste into my work log.
+"""
+A python script to print out date strings for copy/paste into my work log.
 
 Example usage:
 
-$ python workday_print.py 08/02/16
-Work Log WW31 (2016)
-Mon (8/1):
+    $ python workday_print.py 2016-08-02
+    Work Log WW31 (2016)
+    Mon (8/1):
 
 
-Tue (8/2):
+    Tue (8/2):
 
 
-Wed (8/3):
+    Wed (8/3):
 
 
-Thu (8/4):
+    Thu (8/4):
 
 
-Fri (8/5):
-
-'''
-
-import datetime
-# from datetime import datetime, date, timedelta
-import calendar
+    Fri (8/5):
+"""
 import argparse
+import datetime
 
-parser = argparse.ArgumentParser(description='Get intput date')
-parser.add_argument('date_string', help='Date contained in the week (e.g. 07/31/16)', type=str)
-
-args = parser.parse_args()
-
-try:
-    d = datetime.datetime.strptime(args.date_string, '%m/%d/%y')
-except ValueError:
-    print "Cannot parse date_string {0}. Please use MM/DD/YY format, such as: 07/31/16".format(args.date_string)
-    raise
 
 def this_weekday(d, weekday):
+    """Get the date of the the first day of next week.
 
+    Args:
+        d (datetime.datetime): input datetime
+        weekday (int): the weekday in integer. By Python convention,
+            Monday is 0 and Sunday is 6
+    """
     assert weekday <= 7
     days_ahead = weekday - d.weekday()
     # if days_ahead <= 0: # Target day already happened this week
     #     days_ahead += 7
     return d + datetime.timedelta(days_ahead)
 
+
 def this_weekday_list(d):
+    """Get the list of 5 dates on and after the input date.
 
+    Args:
+        d (datetime.datetime): input date
+
+    Returns:
+        list of dates in datetime.datetime format.
+    """
     date_list = [d + datetime.timedelta(i) for i in range(5)]
-    # for i in range(5):
-    #     date_list.append(d + datetime.timedelta(i))
-
     return date_list
 
-title = 'Work Log WW{wk} ({yr})'.format(wk=d.isocalendar()[1],
-                                        yr=d.isocalendar()[0])
-print title
 
-for date_obj in this_weekday_list(this_weekday(d, 0)):
-    print date_obj.strftime("%a (%-m/%-d):")
-    print ""
-    print ""
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Get intput date')
+    parser.add_argument('date_string', type=str,
+                        help='Date contained in the week (e.g. 2016-07-31)')
+    args = parser.parse_args()
+
+    try:
+        d = datetime.datetime.strptime(args.date_string, '')
+    except ValueError:
+        print ("Cannot parse date_string {0}. "
+               "Please use YYYY-MM-DD format, such as: 2016-07-31"
+               .format(args.date_string))
+        raise
+
+    title = 'Work Log WW{wk} ({yr})'.format(wk=d.isocalendar()[1],
+                                            yr=d.isocalendar()[0])
+    print title
+
+    for date_obj in this_weekday_list(this_weekday(d, 0)):
+        print date_obj.strftime("%a (%-m/%-d):")
+        print ""
+        print ""
