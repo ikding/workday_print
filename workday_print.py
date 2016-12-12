@@ -55,7 +55,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     try:
-        d = datetime.datetime.strptime(args.date_string, '')
+        d = datetime.datetime.strptime(args.date_string, '%Y-%m-%d')
     except ValueError:
         print ("Cannot parse date_string {0}. "
                "Please use YYYY-MM-DD format, such as: 2016-07-31"
