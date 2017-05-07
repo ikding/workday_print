@@ -57,16 +57,16 @@ if __name__ == '__main__':
     try:
         d = datetime.datetime.strptime(args.date_string, '%Y-%m-%d')
     except ValueError:
-        print ("Cannot parse date_string {0}. "
-               "Please use YYYY-MM-DD format, such as: 2016-07-31"
-               .format(args.date_string))
+        print("Cannot parse date_string {0}. "
+              "Please use YYYY-MM-DD format, such as: 2016-07-31"
+              .format(args.date_string))
         raise
 
     title = 'Work Log WW{wk} ({yr})'.format(wk=d.isocalendar()[1],
                                             yr=d.isocalendar()[0])
-    print title
+    print(title)
 
     for date_obj in this_weekday_list(this_weekday(d, 0)):
-        print date_obj.strftime("%a (%-m/%-d):")
-        print ""
-        print ""
+        print(date_obj.strftime("%a (%-m/%-d):"))
+        print("")
+        print("")
