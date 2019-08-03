@@ -35,16 +35,18 @@ def this_weekday(d, weekday):
     return d + datetime.timedelta(days_ahead)
 
 
-def this_weekday_list(d):
+def this_weekday_list(d, num_days=5):
     """Get the list of 5 dates on and after the input date.
 
     Args:
         d (datetime.datetime): input date
+        num_days (int): number of subsequent days we want to include.
+            Defaults to ``5``.
 
     Returns:
         list of dates in datetime.datetime format.
     """
-    date_list = [d + datetime.timedelta(i) for i in range(5)]
+    date_list = [d + datetime.timedelta(i) for i in range(num_days)]
     return date_list
 
 
@@ -52,6 +54,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Get intput date')
     parser.add_argument('date_string', type=str,
                         help='Date contained in the week (e.g. 2016-07-31)')
+    parser.add_argument('--nday', type=int,
+                        help='Number of days we want to generate',
+                        default=5, required=False)
     args = parser.parse_args()
 
     try:
@@ -66,7 +71,11 @@ if __name__ == '__main__':
                                             yr=d.isocalendar()[0])
     print(title)
 
-    for date_obj in this_weekday_list(this_weekday(d, 0)):
+    for date_obj in this_weekday_list(this_weekday(d, 0), args.nday):
         print(date_obj.strftime("%a (%-m/%-d):"))
+        # print("Breakfast: ")
+        # print("Lunch: ")
+        # print("Dinner: ")
+        # print("Itinerary: ")
         print("")
         print("")
