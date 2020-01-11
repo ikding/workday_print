@@ -4,6 +4,7 @@ Example usage:
 
     $ python workday_print.py 2016-08-02
     Work Log WW31 (2016)
+
     Mon (8/1):
 
 
@@ -70,6 +71,7 @@ if __name__ == '__main__':
     title = 'Work Log WW{wk} ({yr})'.format(wk=d.isocalendar()[1],
                                             yr=d.isocalendar()[0])
     print(title)
+    print("")
 
     for date_obj in this_weekday_list(this_weekday(d, 0), args.nday):
         print(date_obj.strftime("%a (%-m/%-d):"))
