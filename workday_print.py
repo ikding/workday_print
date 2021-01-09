@@ -28,8 +28,7 @@ def this_weekday(d, weekday):
 
     Args:
         d (datetime.datetime): input datetime
-        weekday (int): the weekday in integer. By Python convention,
-            Monday is 0 and Sunday is 6
+        weekday (int): the weekday in integer. By Python convention, Monday is 0 and Sunday is 6
     """
     assert weekday <= 7
     days_ahead = weekday - d.weekday()
@@ -41,8 +40,7 @@ def this_weekday_list(d, num_days=5):
 
     Args:
         d (datetime.datetime): input date
-        num_days (int): number of subsequent days we want to include.
-            Defaults to ``5``.
+        num_days (int): number of subsequent days we want to include. Defaults to ``5``.
 
     Returns:
         list of dates in datetime.datetime format.
@@ -51,25 +49,30 @@ def this_weekday_list(d, num_days=5):
     return date_list
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Get intput date')
-    parser.add_argument('date_string', type=str,
-                        help='Date contained in the week (e.g. 2016-07-31)')
-    parser.add_argument('--nday', type=int,
-                        help='Number of days we want to generate',
-                        default=5, required=False)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Get intput date")
+    parser.add_argument(
+        "date_string", type=str, help="Date contained in the week (e.g. 2016-07-31)"
+    )
+    parser.add_argument(
+        "--nday",
+        type=int,
+        help="Number of days we want to generate",
+        default=5,
+        required=False,
+    )
     args = parser.parse_args()
 
     try:
-        d = datetime.datetime.strptime(args.date_string, '%Y-%m-%d')
-    except ValueError:
-        print("Cannot parse date_string {0}. "
-              "Please use YYYY-MM-DD format, such as: 2016-07-31"
-              .format(args.date_string))
-        raise
+        d = datetime.datetime.strptime(args.date_string, "%Y-%m-%d")
+    except ValueError as e:
+        print(
+            "Cannot parse date_string {0}. "
+            "Please use YYYY-MM-DD format, such as: 2016-07-31".format(args.date_string)
+        )
+        raise e
 
-    title = 'Work Log WW{wk} ({yr})'.format(wk=d.isocalendar()[1],
-                                            yr=d.isocalendar()[0])
+    title = f"Work Log WW{d.isocalendar()[1]} ({d.isocalendar()[0]})"
     print(title)
     print("")
 
