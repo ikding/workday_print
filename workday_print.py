@@ -2,22 +2,23 @@
 
 Example usage:
 
-    $ python workday_print.py 2016-08-02
-    Work Log WW31 (2016)
+    $ python workday_print.py 2023-01-02
+    Work Log WW1 (2023)
 
-    Mon (8/1):
-
-
-    Tue (8/2):
+    2023-01-02 (Mon):
 
 
-    Wed (8/3):
+    2023-01-03 (Tue):
 
 
-    Thu (8/4):
+    2023-01-04 (Wed):
 
 
-    Fri (8/5):
+    2023-01-05 (Thu):
+
+
+    2023-01-06 (Fri):
+
 """
 import argparse
 import datetime
@@ -77,10 +78,6 @@ if __name__ == "__main__":
     print("")
 
     for date_obj in this_weekday_list(this_weekday(d, 0), args.nday):
-        print(date_obj.strftime("%a (%-m/%-d):"))
-        # print("Breakfast: ")
-        # print("Lunch: ")
-        # print("Dinner: ")
-        # print("Itinerary: ")
+        print(date_obj.strftime("%Y-%m-%d (%a):"))
         print("")
         print("")
